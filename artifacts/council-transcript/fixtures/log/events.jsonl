@@ -1,0 +1,7 @@
+{"ts":"2026-09-03T10:00:00Z","stage":0,"from":"chairman","to":"user","type":"brief","text":"Brief frozen","ref":"brief.md"}
+{"ts":"2026-09-03T10:01:00Z","stage":2,"from":"chairman","to":"contrarian","type":"pointer","text":"Stage 2 task","ref":"inbox/contrarian/stage2-task.md"}
+{"ts":"2026-09-03T10:02:00Z","stage":2,"from":"contrarian","to":"chairman","type":"pointer","text":"done","ref":"outbox/contrarian/stage2.md"}
+{"ts":"2026-09-03T10:02:30Z","stage":2,"from":"expansionist","to":"chairman","type":"pointer","text":"done","ref":"outbox/expansionist/stage2.md"}
+{"ts":"2026-09-03T10:05:00Z","stage":3,"from":"chairman","to":"contrarian","type":"pointer","text":"Review packet ready","ref":"inbox/contrarian/stage3-packet.md"}
+{"ts":"2026-09-03T10:07:00Z","stage":3,"from":"contrarian","to":"chairman","type":"pointer","text":"done","ref":"outbox/contrarian/stage3.md"}
+{"ts":"2026-09-03T10:07:30Z","stage":3,"from":"expansionist","to":"chairman","type":"pointer","text":"done","ref":"outbox/expansionist/stage3.md"}
