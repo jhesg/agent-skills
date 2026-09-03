@@ -24,6 +24,12 @@
       "prompt": "Our Next.js Pages Router app has LCP p75 of 3.8s on the two money pages, Emotion SSR and hydration dominate. 6 frontend engineers. I don't have options yet, I want the council to propose the directions and then debate them.",
       "expected_output": "Guard passes with OPTIONS to be proposed. Stage 1b runs with First-Principles, Expansionist, Executor proposing; Chairman consolidates to \u22644 options without attribution, shows brief, then normal stages.",
       "files": []
+    },
+    {
+      "id": 5,
+      "prompt": "should I use pg-boss or BullMQ for a side project job queue, can't decide. I need to present the team an ADR with considerations, tradeoffs, why we discarded options, and alternatives outside the list, so we have a decision record if we reopen this later.",
+      "expected_output": "Guard passes on record need despite trivial reversibility, PURPOSE: record. Stage 1b augment runs, proposers add alternatives outside pg-boss/BullMQ or state none credible. Verdict has REJECTED lines. Stage 6 emits both plan.md and a MADR-style decision-record.md.",
+      "files": []
     }
   ]
 }

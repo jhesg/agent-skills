@@ -26,6 +26,7 @@ date: <ISO date>
 <one row per adviser, summed over four reviewers>
 
 ## Where to read more
+- Decision record: <run>/decision-record.md
 - Transcript: <run>/transcript.html
 - Takes: <run>/outbox/<role>/stage2.md
 - Reviews: <run>/outbox/<role>/stage3.md

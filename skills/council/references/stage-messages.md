@@ -16,7 +16,10 @@ Reply with exactly one line: done: outbox/<role>/stage2.md
 ```
 STAGE 1B: PROPOSE OPTIONS
 
-The brief below has no options yet. The user asked the council to propose them. Propose from your lens, as your charter describes. Up to 2 options.
+<discover mode> The brief below has no options yet. The user asked the council to propose them. Propose from your lens, as your charter describes. Up to 2 options.
+<augment mode> The brief below lists options the user already has. The team needs a decision record, so it must show what else was considered. Propose up to 2 options that are NOT variants of the listed ones. If you honestly cannot find one worth the panel's time, write "no credible alternative from this lens" and say why in one line; that is a valid and useful answer.
+
+(Chairman: keep only the line for the mode in use.)
 
 For each option:
 NAME: <3–6 words>

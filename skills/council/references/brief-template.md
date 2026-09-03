@@ -3,6 +3,7 @@
 Fill every field. Tag each `given` (user said it), `inferred` (you derived it, say from what), or `missing`. Keep the user's wording where possible; you are organising, not rewriting. Options keep the user's order.
 
 ```
+PURPOSE: <decide | record>                                                    [given|inferred]
 DECISION: <one sentence, the choice to make>                                   [given|inferred|missing]
 OPTIONS:
   A. <option>                                                                   [given|inferred]
@@ -18,6 +19,8 @@ CONTEXT: <2–5 lines of the user's own situation, verbatim where possible>     
 ASSUMPTIONS (only if user chose to proceed with gaps):
   - <field>: <assumed value> — because <reason>
 ```
+
+`PURPOSE` is `record` when the user says the team needs an ADR, a decision record, or a written history of the choice. Otherwise `decide`. Record mode passes the guard on its own and turns on the Stage 1b augment round, because "what else did we consider" is a question a record must answer.
 
 Why the tags matter: advisers read only this brief. If they cannot tell what the user actually said from what you guessed, an inferred fact becomes a hard input and the whole panel argues from your assumption. Tagged, they can challenge it, which is the Assumption Auditor's job.
 

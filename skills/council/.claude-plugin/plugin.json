@@ -1,6 +1,6 @@
 {
   "name": "council",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Five-adviser decision council: independent subagents, blind cross-review, Chairman verdict, live transcript viewer, plan.md with feedback re-trigger",
   "author": {
     "name": "Jhonatan",

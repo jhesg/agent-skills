@@ -18,7 +18,7 @@ Five advisers, each in its own subagent context, answer a curated brief, score e
 | Assumption Auditor | subagent | `references/advisers/assumption-auditor.md` |
 | Executor | subagent | `references/advisers/executor.md` |
 
-Also: `references/brief-template.md`, `references/stage-messages.md`, `references/plan-template.md`, `scripts/serve_log.py`, `assets/viewer.html`.
+Also: `references/brief-template.md`, `references/stage-messages.md`, `references/plan-template.md`, `references/adr-template.md`, `scripts/serve_log.py`, `assets/viewer.html`.
 
 The Chairman never writes adviser content. You route, strip labels, log, aggregate, decide. If you catch yourself arguing a side before Stage 4, stop: that is the panel's job.
 
@@ -85,7 +85,9 @@ Run the guard, even on explicit `/council` invocation:
 | Reversibility | Trivially undone in a day or less |
 | Stakes | No consequence beyond the week and none inferable |
 
-If any check fails, do not spawn agents. Log a `note` and say plainly:
+One condition passes the guard regardless of the table: the user says the team needs an ADR, a decision record, or a written history of the choice. Set `PURPOSE: record`, log a `note` saying the council convened for record value, and continue. A trivial decision with a record requirement is still worth the panel, because the deliverable is the reasoning, not the pick.
+
+If any check fails and no record need is stated, do not spawn agents. Log a `note` and say plainly:
 
 > Council not convened. Reason: [failed check, one line]. Full panel cost is not justified by this input. Here is [direct answer / Executor-style plan] instead. Say "convene anyway" to override.
 
@@ -110,9 +112,9 @@ The first task file is `stage2-task.md`, or `stage1b-propose.md` for the three p
 
 Record each agent's ID/name. Stages 3 and 5 continue these same agents with `SendMessage`; a fresh `Agent` call would lose context and break the design. If an agent is lost, respawn it and replay its inbox from files.
 
-## Stage 1b: Option discovery (only when `OPTIONS: to be proposed`)
+## Stage 1b: Option discovery (when `OPTIONS: to be proposed`, or `PURPOSE: record`)
 
-Runs after spawning, before Stage 2. Three advisers propose, each from their own lens, so the option set is not one person's framing:
+Runs after spawning, before Stage 2. Two modes, same packet: **discover** when no options exist, **augment** when options exist but the purpose is record, so the record can answer "what else did we consider". In augment mode proposers see the given options and must propose outside them. Three advisers propose, each from their own lens, so the option set is not one person's framing:
 
 | Adviser | Asked for |
 |---|---|
@@ -136,7 +138,7 @@ For each adviser, write `inbox/<role>/stage3-packet.md` from the Stage 3 templat
 
 ## Stage 4: Verdict
 
-Sum scores per adviser across the four reviewers. Write `verdict.md`, 250 words max, exact template:
+Sum scores per adviser across the four reviewers. Write `verdict.md`, 300 words max including REJECTED lines, exact template:
 
 ```
 VERDICT: <Do A | Do B | Not decidable, need <X> by <date>>
@@ -145,7 +147,11 @@ SCORES: <role: total> ... (top two must appear in reasoning above or explain why
 BIGGEST RISK: <one Contrarian item tagged high likelihood + high severity, or say why you chose a lower-tagged one>
 LEADING INDICATOR: <what to watch>
 KILL CRITERIA: reverse this if <X> observed by <date>
+REJECTED <option>: <one reason, drawn from a take or review, not invented here>
+(one REJECTED line per non-chosen option)
 ```
+
+The REJECTED lines exist for the decision record. A future reader needs why the others lost more than why the winner won.
 
 "Not decidable" is a real verdict, not a hedge. Use it when the panel exposed a missing fact that flips the answer. If the door is two-way and options are close, say: pick either, decide within 24h, here is the tiebreak. Log `type: verdict`. Show it to the user before Stage 5.
 
@@ -153,9 +159,9 @@ KILL CRITERIA: reverse this if <X> observed by <date>
 
 Write `inbox/executor/stage5-verdict.md` from the Stage 5 template with the verdict inline. Send the pointer. Executor returns `outbox/executor/stage5.md`, a week plan naming only stakeholders in the brief. Log `type: plan`. Export the transcript.
 
-## Stage 6: Deliver plan.md
+## Stage 6: Deliver plan.md and decision-record.md
 
-Write `<run>/plan.md` from `references/plan-template.md`: brief, verdict, week plan, score table, links, and an empty Feedback section. Send it to the user (`SendUserFile` when available, otherwise the path). This is the deliverable. The user edits Feedback and re-triggers with `/council <path>/plan.md`; the re-trigger procedure is in the same template file.
+Write `<run>/plan.md` from `references/plan-template.md`: brief, verdict, week plan, score table, links, and an empty Feedback section. Write `<run>/decision-record.md` from `references/adr-template.md`, every run, from run files only. Send both (`SendUserFile` when available, otherwise the paths). Two projections of one run: plan is for acting this week, record is for whoever reopens the question later. The user edits Feedback and re-triggers with `/council <path>/plan.md`; the re-trigger procedure is in the same template file.
 
 ## Fallback: no subagents
 
@@ -166,7 +172,7 @@ If `Agent` and `SendMessage` are unavailable, run stages in one context, still w
 1. Viewer URL, at the start
 2. Frozen brief, before spawning
 3. Verdict, before Stage 5
-4. `plan.md`, at the end. Contains brief, verdict, week plan, scores, links, Feedback section
+4. `plan.md` and `decision-record.md`, at the end. Plan for acting, record for history
 5. `transcript.html`, alongside
 
 Adviser output never reaches the user unless you relay it. `plan.md` is the relay.
