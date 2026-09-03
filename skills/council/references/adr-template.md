@@ -1,6 +1,8 @@
 # decision-record.md template
 
-Written by the Chairman at Stage 6, every run, next to `plan.md`. MADR-style. It is the history projection of the run: what was on the table, why the rest lost, when to look again. `plan.md` is for acting this week; this file is for the person who reopens the question in a year.
+Written by the Chairman at Stage 6, every run. MADR-style. It is the history projection: what was on the table, why the rest lost, when to look again. `plan.md` is for acting this week; this file is for the person who reopens the question in a year.
+
+It is a living document. Round 1 creates it in the run dir. Every later round updates the same file in place, wherever the user has moved it, and appends to `## History`. One record per decision, however many rounds. The user stops iterating by not re-triggering; there is no round limit.
 
 Fill from run files only. Do not add reasoning that did not happen in the run; if a section has nothing, write "not raised by the panel". A record that invents tidy justifications after the fact is worse than a thin one.
 
@@ -46,6 +48,12 @@ Because: <DECIDING POINT, quoted>
 
 ## Revisit when
 <KILL CRITERIA, plus any date-bound facts the verdict depended on>
+
+## History
+- Round 1, <date>: created. Verdict: <one line>. Run: <run dir>
+- Round 2, <date>: feedback "<quoted gist>". Changed: <what moved: option added, verdict flipped, assumption corrected>. Verdict: <one line>. Run: <run dir>
 ```
+
+On an update round, rewrite every section from the new run, keep the History intact, add one line. If the verdict changed, set the old one's status line to `superseded` inside the History entry, not by deleting it. Someone reading the record should be able to see the decision move.
 
 Why every run: the cost is one template fill from files already on disk. Teams lose more to re-deriving old decisions than they save by skipping the record on small ones.

@@ -47,4 +47,4 @@ pnpm new-skill <name>            # scaffold skill + artifact
 
 Built assets are committed. `pnpm check` fails if a build changes them, so `skills/` never drifts from source.
 
-See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for why it is shaped this way.
+See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for why it is shaped this way and [docs/ROADMAP.md](docs/ROADMAP.md) for the document skills that will consume council decisions.
