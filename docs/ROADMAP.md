@@ -14,10 +14,14 @@ Council decides. It does not author design documents. These skills will, and eac
 
 | Skill | Produces | Council decisions it typically delegates | Status |
 |---|---|---|---|
-| `prd` | Product requirements: problem, users, scope, success metrics, non-goals | Scope cuts, metric choice, build vs buy | not started |
-| `spec` | Technical spec for one feature: behaviour, data, interfaces, rollout, testing | Data model shape, rollout strategy, migration approach | not started |
-| `api-design` | API or SDK surface: resources, contracts, versioning, errors, examples | Versioning scheme, pagination style, breaking-change policy | not started |
-| `system-design` | Components, data flow, capacity, failure modes, operations | Sync vs async, storage engine, consistency model, hosting | not started |
+| `prd` | Product requirements: problem, users, scope, success metrics, non-goals | Scope cuts, metric choice, build vs buy | v0.2.0, untested |
+| `spec` | Technical spec for one feature: behaviour, data, interfaces, rollout, testing | Data model shape, rollout strategy, migration approach | v0.2.0, untested |
+| `api-design` | API or SDK surface: resources, contracts, versioning, errors, examples | Versioning scheme, pagination style, breaking-change policy | v0.2.0, untested |
+| `system-design` | Components, data flow, capacity, failure modes, operations | Sync vs async, storage engine, consistency model, hosting | v0.2.0, untested |
+
+## Diagrams
+
+`diagram` is a shared utility skill: spec JSON → `.excalidraw` via stdlib Python, deterministic layout, palette from `@agent-skills/ui`, local preview artifact, SVG export. Document skills and council call it under the rules in `skills/diagram/references/rules.md`. It is our own implementation: the official Excalidraw package is 46 MB unpacked and loads fonts from a CDN, which our artifacts cannot do, and the popular third-party skill ships no licence. The viewer renders only the subset the generator emits; the `.excalidraw` file itself opens anywhere Excalidraw does.
 
 ## Order
 

@@ -20,7 +20,12 @@ Or copy `skills/<name>/` anywhere Claude looks for skills.
 
 | Skill | What it does | Artifact |
 |---|---|---|
-| [council](skills/council) | Five-adviser decision council with independent subagents, blind review, verdict, plan.md | live transcript viewer |
+| [council](skills/council) | Five-adviser decision council with independent subagents, blind review, verdict, plan.md, living decision record | live transcript viewer |
+| [diagram](skills/diagram) | Excalidraw diagrams from a declarative spec, deterministic layout, shared palette | diagram preview + SVG export |
+| [spec](skills/spec) | Technical spec for one feature; contested decisions go to council | — |
+| [system-design](skills/system-design) | System design: components, flow, capacity, failure modes | — |
+| [api-design](skills/api-design) | API or SDK surface: resources, contracts, errors, versioning | — |
+| [prd](skills/prd) | Product requirements: problem, users, goals, scope, launch | — |
 
 ## Layout
 

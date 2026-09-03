@@ -1,0 +1,20 @@
+{
+  "title": "Notification pipeline, option A: outbox + worker",
+  "layout": "flow", "direction": "LR",
+  "nodes": [
+    {"id": "api", "label": "API handler", "tone": "1"},
+    {"id": "pg", "label": "Postgres", "note": "outbox table, same tx", "tone": "1", "shape": "rect"},
+    {"id": "worker", "label": "Worker", "note": "polls, idempotency key", "tone": "1"},
+    {"id": "email", "label": "SendGrid", "tone": "3", "shape": "ellipse"},
+    {"id": "push", "label": "APNs / FCM", "tone": "3", "shape": "ellipse"},
+    {"id": "dlq", "label": "Dead letter", "tone": "danger", "shape": "diamond"}
+  ],
+  "edges": [
+    {"from": "api", "to": "pg", "label": "insert outbox"},
+    {"from": "pg", "to": "worker", "label": "poll"},
+    {"from": "worker", "to": "email", "label": "send"},
+    {"from": "worker", "to": "push", "label": "send"},
+    {"from": "worker", "to": "dlq", "label": "after 5 retries", "style": "dashed", "tone": "danger"}
+  ],
+  "legend": [{"tone": "1", "label": "owned"}, {"tone": "3", "label": "external"}, {"tone": "danger", "label": "failure path"}]
+}

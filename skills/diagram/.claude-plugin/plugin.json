@@ -1,0 +1,8 @@
+{
+  "name": "diagram",
+  "version": "0.1.0",
+  "description": "Excalidraw diagrams from a declarative spec: deterministic layout, shared palette, local preview and SVG export. Used standalone or by the document and council skills.",
+  "author": { "name": "Jhonatan", "url": "https://github.com/jhesg" },
+  "license": "MIT",
+  "keywords": ["diagram", "excalidraw", "architecture", "flow", "comparison"]
+}

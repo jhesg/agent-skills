@@ -53,6 +53,15 @@
       "skills": [
         "./skills/prd"
       ]
+    },
+    {
+      "name": "diagram",
+      "description": "Excalidraw diagrams from a declarative spec: deterministic layout, shared palette, local preview and SVG export",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./skills/diagram"
+      ]
     }
   ]
 }

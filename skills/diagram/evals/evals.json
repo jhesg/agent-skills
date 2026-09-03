@@ -1,0 +1,8 @@
+{
+  "skill_name": "diagram",
+  "evals": [
+    {"id": 1, "prompt": "Draw the notification pipeline: API writes an outbox row in the same transaction, a worker on Fly.io polls it and sends to SendGrid and APNs, failures go to a dead-letter table after 5 retries.", "expected_output": "flow spec with 6 nodes, dashed danger edge to dead letter, legend, .excalidraw + preview + SVG delivered with a one-line caption", "files": []},
+    {"id": 2, "prompt": "compare our three options for the queue redesign side by side: outbox+worker, Vercel Queues, stay synchronous with circuit breakers", "expected_output": "columns layout, one frame per option, same detail level per option, tones for chosen/rejected/risk", "files": []},
+    {"id": 3, "prompt": "diagram the steps: user clicks apply, we save the application", "expected_output": "declines to draw: two steps is a sentence; offers prose", "files": []}
+  ]
+}

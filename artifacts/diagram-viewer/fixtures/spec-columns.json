@@ -1,0 +1,22 @@
+{
+  "title": "Options compared",
+  "layout": "columns",
+  "groups": [{"id": "A", "label": "A: outbox + worker"}, {"id": "B", "label": "B: managed queue"}, {"id": "C", "label": "C: stay sync + breakers"}],
+  "nodes": [
+    {"id": "a1", "group": "A", "label": "API writes outbox", "tone": "1"},
+    {"id": "a2", "group": "A", "label": "Worker on Fly.io", "tone": "1"},
+    {"id": "a3", "group": "A", "label": "Providers", "tone": "3", "shape": "ellipse"},
+    {"id": "b1", "group": "B", "label": "API writes outbox", "tone": "2"},
+    {"id": "b2", "group": "B", "label": "Vercel Queues (beta)", "tone": "danger", "note": "SRE objection"},
+    {"id": "b3", "group": "B", "label": "Providers", "tone": "3", "shape": "ellipse"},
+    {"id": "c1", "group": "C", "label": "API sends inline", "tone": "2"},
+    {"id": "c2", "group": "C", "label": "Circuit breakers", "tone": "2"},
+    {"id": "c3", "group": "C", "label": "Providers", "tone": "3", "shape": "ellipse"}
+  ],
+  "edges": [
+    {"from": "a1", "to": "a2"}, {"from": "a2", "to": "a3"},
+    {"from": "b1", "to": "b2"}, {"from": "b2", "to": "b3"},
+    {"from": "c1", "to": "c2"}, {"from": "c2", "to": "c3", "style": "dashed", "label": "blocks request"}
+  ],
+  "legend": [{"tone": "1", "label": "chosen"}, {"tone": "2", "label": "rejected"}, {"tone": "danger", "label": "risk"}]
+}
