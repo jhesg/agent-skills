@@ -1,0 +1,8 @@
+node_modules/
+dist/
+*.skill
+.DS_Store
+*.log
+.council-run/
+artifacts/*/dist/
+.vite/

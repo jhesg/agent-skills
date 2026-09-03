@@ -1,0 +1,20 @@
+{
+  "name": "jhesg-agent-skills",
+  "owner": {
+    "name": "Jhonatan",
+    "url": "https://github.com/jhesg"
+  },
+  "metadata": {
+    "description": "Agent skills with self-contained artifacts, sharing one design system",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "council",
+      "description": "Five-adviser decision council: independent subagents, blind cross-review, Chairman verdict, live transcript viewer, plan.md with feedback re-trigger",
+      "source": "./",
+      "strict": false,
+      "skills": ["./skills/council"]
+    }
+  ]
+}
