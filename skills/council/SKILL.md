@@ -161,7 +161,7 @@ Write `inbox/executor/stage5-verdict.md` from the Stage 5 template with the verd
 
 ## Stage 6: Deliver plan.md and decision-record.md
 
-Write `<run>/plan.md` from `references/plan-template.md`: brief, verdict, week plan, score table, links, and an empty Feedback section. Write `<run>/decision-record.md` from `references/adr-template.md`, every run, from run files only. Send both (`SendUserFile` when available, otherwise the paths). Two projections of one run: plan is for acting this week, record is for whoever reopens the question later. The plan is per round; the record is one living file per decision, updated in place on every later round with a History line. The user edits Feedback and re-triggers with `/council <path>/plan.md`; the re-trigger procedure is in `references/plan-template.md`. Rounds are unlimited, the user decides when to stop.
+Write `<run>/plan.md` from `references/plan-template.md`: brief, verdict, week plan, score table, links, and an empty Feedback section. Write `decision-record.md` from `references/adr-template.md`, every run, from run files only, at `RECORD PATH` if the brief names one, else in the run dir. Send both (`SendUserFile` when available, otherwise the paths). Two projections of one run: plan is for acting this week, record is for whoever reopens the question later. The plan is per round; the record is one living file per decision, updated in place on every later round with a History line. The user edits Feedback and re-triggers with `/council <path>/plan.md`; the re-trigger procedure is in `references/plan-template.md`. Rounds are unlimited, the user decides when to stop.
 
 ## Downstream documents
 
