@@ -26,6 +26,33 @@
       "skills": [
         "./skills/spec"
       ]
+    },
+    {
+      "name": "system-design",
+      "description": "System design document skill: a system design: components, data flow, capacity, failure modes, operations; delegates contested decisions to council",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./skills/system-design"
+      ]
+    },
+    {
+      "name": "api-design",
+      "description": "API design document skill: an API or SDK surface: resources, contracts, errors, versioning, examples; delegates contested decisions to council",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./skills/api-design"
+      ]
+    },
+    {
+      "name": "prd",
+      "description": "Product requirements document skill: a product requirements document: problem, users, goals, scope, requirements, launch; delegates contested decisions to council",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./skills/prd"
+      ]
     }
   ]
 }
