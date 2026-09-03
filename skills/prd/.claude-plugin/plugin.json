@@ -1,0 +1,16 @@
+{
+  "name": "prd",
+  "version": "0.1.0",
+  "description": "Product requirements document skill: a product requirements document: problem, users, goals, scope, requirements, launch; delegates contested decisions to council",
+  "author": {
+    "name": "Jhonatan",
+    "url": "https://github.com/jhesg"
+  },
+  "license": "MIT",
+  "keywords": [
+    "prd",
+    "document",
+    "council",
+    "decision-record"
+  ]
+}

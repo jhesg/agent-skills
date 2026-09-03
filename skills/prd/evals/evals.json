@@ -1,0 +1,23 @@
+{
+  "skill_name": "prd",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "PRD for a 'candidate availability' feature: candidates mark themselves open to work with start date and preferences, recruiters filter by it. We have 40k MAU, recruiters complain about stale profiles.",
+      "expected_output": "Full draft with contested decisions delegated to council and cited",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "/prd docs/product/availability.md \u2014 feedback: legal says availability status is sensitive in some markets, and sales wants it gated to paid recruiters. Update.",
+      "expected_output": "Iteration: in-place update, Changelog line, decision re-trigger where feedback challenges a record",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "write a prd for dark mode",
+      "expected_output": "Short input: intake asks up to 3 questions or drafts with defaults; likely no council run needed",
+      "files": []
+    }
+  ]
+}
