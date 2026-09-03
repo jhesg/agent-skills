@@ -37,8 +37,8 @@ w(join(skill, 'evals/evals.json'), JSON.stringify({ skill_name: name, evals: [] 
 w(join(app, 'package.json'), JSON.stringify({
   name: `@agent-skills/${name}-${artifact}`, private: true, type: 'module',
   scripts: { dev: 'vite', build: 'vite build', typecheck: 'tsc -p tsconfig.json' },
-  dependencies: { react: '^19.2.0', 'react-dom': '^19.2.0', '@agent-skills/ui': 'workspace:*', '@agent-skills/artifact-kit': 'workspace:*' },
-  devDependencies: { '@agent-skills/vite-config': 'workspace:*', '@types/react': '^19.2.0', '@types/react-dom': '^19.2.0', typescript: '^5.9.0', vite: '^7.0.0' },
+  dependencies: { react: '^19.2.8', 'react-dom': '^19.2.8', '@agent-skills/ui': 'workspace:*', '@agent-skills/artifact-kit': 'workspace:*' },
+  devDependencies: { '@agent-skills/vite-config': 'workspace:*', '@types/react': '^19.2.18', '@types/react-dom': '^19.2.5', typescript: '^7.0.2', vite: '^8.2.2' },
 }, null, 2) + '\n');
 w(join(app, 'vite.config.ts'), `import { defineArtifact } from '@agent-skills/vite-config';\n\nexport default defineArtifact({ skill: '${name}', name: '${artifact}', slotId: '${name}-data' });\n`);
 w(join(app, 'tsconfig.json'), JSON.stringify({ extends: '../../tsconfig.base.json', include: ['src'] }, null, 2) + '\n');
