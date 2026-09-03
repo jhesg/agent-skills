@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Council Transcript</title>
+<style>
+  :root{--bg:#f6f5f2;--panel:#fff;--ink:#1c1b19;--muted:#6b6862;--line:#e3e0da;--chair:#2f5d8a;--adv:#7a4b1f;--derived:#4f6b3a;--pill:#eeece7}
+  @media (prefers-color-scheme:dark){:root{--bg:#161513;--panel:#1f1e1b;--ink:#ece9e2;--muted:#9a968d;--line:#33312c;--chair:#7fb0e0;--adv:#d9a066;--derived:#9dc47f;--pill:#2a2925}}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+  header{position:sticky;top:0;background:var(--panel);border-bottom:1px solid var(--line);padding:10px 16px;display:flex;gap:12px;align-items:center;flex-wrap:wrap;z-index:2}
+  header h1{font-size:15px;margin:0 8px 0 0;font-weight:600}
+  header label{color:var(--muted);font-size:12px;display:flex;gap:6px;align-items:center}
+  select{font:inherit;padding:4px 6px;border:1px solid var(--line);border-radius:6px;background:var(--panel);color:var(--ink)}
+  .status{margin-left:auto;font-size:12px;color:var(--muted)}
+  .status b{color:var(--ink)}
+  main{max-width:920px;margin:0 auto;padding:16px}
+  .msg{display:grid;grid-template-columns:120px 1fr;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}
+  .who{font-size:12px;color:var(--muted);line-height:1.3}
+  .who .from{font-weight:600;display:block}
+  .who.chairman .from{color:var(--chair)}
+  .who.adviser .from{color:var(--adv)}
+  .who.derived .from{color:var(--derived)}
+  .who .ts{display:block;font-variant-numeric:tabular-nums}
+  .body .head{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}
+  .pill{font-size:11px;background:var(--pill);border-radius:999px;padding:1px 8px;color:var(--muted)}
+  .to{color:var(--muted);font-size:12px}
+  .text{margin:4px 0 0}
+  details{margin-top:6px}
+  summary{cursor:pointer;color:var(--muted);font-size:12px}
+  pre{white-space:pre-wrap;word-wrap:break-word;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:10px;margin:6px 0 0;font:13px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace;max-height:420px;overflow:auto}
+  .empty{color:var(--muted);text-align:center;padding:48px 0}
+</style>
+</head>
+<body>
+<header>
+  <h1>Council</h1>
+  <label>Channel <select id="channel"><option value="all">All</option></select></label>
+  <label>Stage <select id="stage"><option value="all">All</option></select></label>
+  <label><input type="checkbox" id="expand"> Expand files</label>
+  <div class="status" id="status">loading…</div>
+</header>
+<main id="feed"><div class="empty">Waiting for log/events.jsonl…</div></main>
+
+<script type="application/json" id="council-data"></script>
+<script>
+(() => {
+  const STATIC = (() => { const s = document.getElementById('council-data')?.textContent?.trim(); if (!s) return null; try { return JSON.parse(s); } catch { return null; } })();
+  const files = STATIC ? {...STATIC.files} : {};
+  let events = [], mapping = null, lastRaw = null;
+  const $ = s => document.querySelector(s);
+  const feed = $('#feed'), chSel = $('#channel'), stSel = $('#stage'), status = $('#status'), expand = $('#expand');
+
+  async function fetchText(path) {
+    if (STATIC) return files[path] ?? null;
+    if (files[path] !== undefined && !path.startsWith('log/')) return files[path];
+    try {
+      const r = await fetch('/' + path + '?t=' + Date.now(), {cache: 'no-store'});
+      if (!r.ok) return null;
+      const t = await r.text();
+      files[path] = t;
+      return t;
+    } catch { return null; }
+  }
+
+  function parseEvents(raw) {
+    return raw.split('\n').map(l => l.trim()).filter(Boolean).map(l => { try { return JSON.parse(l); } catch { return null; } }).filter(Boolean);
+  }
+
+  // Stage 3 outputs: "A | evidence: n | actionability: n\n<text>" blocks.
+  function parseReview(text) {
+    const out = [];
+    const re = /^([A-D])\s*\|\s*evidence:\s*(\d)\s*\|\s*actionability:\s*(\d)\s*$/gim;
+    let m, idx = [];
+    while ((m = re.exec(text))) idx.push({label: m[1].toUpperCase(), ev: m[2], act: m[3], start: m.index, end: m.index + m[0].length});
+    idx.forEach((h, i) => {
+      const bodyEnd = i + 1 < idx.length ? idx[i + 1].start : text.length;
+      out.push({...h, body: text.slice(h.end, bodyEnd).trim()});
+    });
+    return out;
+  }
+
+  function derivedReviews() {
+    if (!mapping) return [];
+    const out = [];
+    for (const reviewer of Object.keys(mapping)) {
+      const path = `outbox/${reviewer}/stage3.md`;
+      const txt = files[path];
+      if (!txt) continue;
+      const done = events.find(e => e.from === reviewer && e.stage === 3 && e.ref === path);
+      for (const r of parseReview(txt)) {
+        const author = mapping[reviewer][r.label];
+        if (!author) continue;
+        out.push({ts: done?.ts || '', stage: 3, from: reviewer, to: author, type: 'review', derived: true,
+          text: `Response ${r.label} · evidence ${r.ev}/5 · actionability ${r.act}/5`, body: r.body});
+      }
+    }
+    return out;
+  }
+
+  function roleClass(name) { return name === 'chairman' ? 'chairman' : 'adviser'; }
+  function esc(s) { return String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+  function fmtTs(ts) { if (!ts) return ''; const d = new Date(ts); return isNaN(d) ? esc(ts) : d.toLocaleTimeString(); }
+
+  function channelKey(a, b) { return [a, b].sort().join(' ↔ '); }
+
+  function rebuildFilters(all) {
+    const chans = new Set(), stages = new Set();
+    all.forEach(e => { if (e.from && e.to) chans.add(channelKey(e.from, e.to)); if (e.stage !== undefined) stages.add(String(e.stage)); });
+    const keepC = chSel.value, keepS = stSel.value;
+    chSel.innerHTML = '<option value="all">All</option>' + [...chans].sort().map(c => `<option value="${esc(c)}">${esc(c)}</option>`).join('');
+    stSel.innerHTML = '<option value="all">All</option>' + [...stages].sort().map(s => `<option value="${s}">Stage ${s}</option>`).join('');
+    if ([...chSel.options].some(o => o.value === keepC)) chSel.value = keepC;
+    if ([...stSel.options].some(o => o.value === keepS)) stSel.value = keepS;
+  }
+
+  function render() {
+    const all = [...events, ...derivedReviews()].sort((a, b) => String(a.ts).localeCompare(String(b.ts)));
+    rebuildFilters(all);
+    const ch = chSel.value, st = stSel.value;
+    const shown = all.filter(e => (ch === 'all' || (e.from && e.to && channelKey(e.from, e.to) === ch)) && (st === 'all' || String(e.stage) === st));
+    if (!shown.length) { feed.innerHTML = '<div class="empty">No events for this filter.</div>'; return; }
+    feed.innerHTML = shown.map(e => {
+      const cls = e.derived ? 'derived' : roleClass(e.from);
+      const content = e.body ?? (e.ref ? files[e.ref] : null);
+      const file = content != null
+        ? `<details ${expand.checked ? 'open' : ''}><summary>${e.ref ? esc(e.ref) : 'review'}</summary><pre>${esc(content)}</pre></details>`
+        : (e.ref ? `<div class="to">→ ${esc(e.ref)} (not readable)</div>` : '');
+      return `<div class="msg">
+        <div class="who ${cls}"><span class="from">${esc(e.from || '?')}</span><span class="ts">${fmtTs(e.ts)}</span></div>
+        <div class="body">
+          <div class="head"><span class="pill">stage ${esc(e.stage ?? '?')}</span><span class="pill">${esc(e.type || 'event')}</span><span class="to">to ${esc(e.to || '—')}</span></div>
+          <div class="text">${esc(e.text || '')}</div>
+          ${file}
+        </div></div>`;
+    }).join('');
+  }
+
+  async function load() {
+    const raw = await fetchText('log/events.jsonl');
+    if (raw == null) { status.textContent = STATIC ? 'static · no log' : 'live · waiting for log'; return; }
+    if (raw === lastRaw && !STATIC) return;
+    lastRaw = raw;
+    events = parseEvents(raw);
+    const mapRaw = await fetchText('log/stage3-mapping.json');
+    mapping = mapRaw ? (() => { try { return JSON.parse(mapRaw); } catch { return null; } })() : null;
+    const refs = new Set(events.map(e => e.ref).filter(Boolean));
+    if (mapping) Object.keys(mapping).forEach(r => refs.add(`outbox/${r}/stage3.md`));
+    await Promise.all([...refs].filter(r => files[r] === undefined || !STATIC).map(r => fetchText(r)));
+    status.innerHTML = `${STATIC ? 'static' : 'live'} · <b>${events.length}</b> events`;
+    render();
+  }
+
+  chSel.onchange = stSel.onchange = expand.onchange = render;
+  load();
+  if (!STATIC) setInterval(load, 2000);
+})();
+</script>
+</body>
+</html>

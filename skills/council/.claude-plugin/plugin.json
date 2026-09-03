@@ -1,0 +1,8 @@
+{
+  "name": "council",
+  "version": "0.2.0",
+  "description": "Five-adviser decision council: independent subagents, blind cross-review, Chairman verdict, live transcript viewer, plan.md with feedback re-trigger",
+  "author": { "name": "Jhonatan", "url": "https://github.com/jhesg" },
+  "license": "MIT",
+  "keywords": ["decision", "council", "advisers", "subagents", "review"]
+}

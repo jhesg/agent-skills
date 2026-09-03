@@ -1,0 +1,23 @@
+{
+  "skill_name": "council",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I'm a staff engineer at a 40-person B2B SaaS. My CTO wants me to lead the migration of our monolith to microservices over the next 9 months; alternatively I can stay on the product team and ship the new billing engine which sales says is blocking 3 enterprise deals. I've never led a platform project. Comp is the same either way. Should I take the migration lead? Convene the council.",
+      "expected_output": "Structured brief with tagged fields, five adviser takes in separate subagents, blind cross-review scores, a Chairman verdict in the fixed template with kill criteria, and an Executor week plan naming only the CTO and sales as stakeholders.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "should i use postgres or mongo for my side project todo app, i can't decide",
+      "expected_output": "Council not convened. Guard fails on reversibility and stakes. Explicit statement of the reason, a direct answer instead, and the 'convene anyway' override offered.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "We're deciding whether to raise prices 30% for existing customers in January or grandfather them and only raise for new signups. ~200 customers, churn is 2%/mo, we need to hit profitability by Q3. I'm torn. Run the council.",
+      "expected_output": "Brief marks stakeholders as missing and asks up to 3 questions before spawning, or proceeds with a labeled ASSUMPTIONS block if told to. Verdict allows 'Not decidable, need X' if the panel exposes a missing fact.",
+      "files": []
+    }
+  ]
+}
