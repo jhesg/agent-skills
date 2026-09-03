@@ -1,0 +1,16 @@
+{
+  "name": "api-design",
+  "version": "0.1.0",
+  "description": "API design document skill: an API or SDK surface: resources, contracts, errors, versioning, examples; delegates contested decisions to council",
+  "author": {
+    "name": "Jhonatan",
+    "url": "https://github.com/jhesg"
+  },
+  "license": "MIT",
+  "keywords": [
+    "api-design",
+    "document",
+    "council",
+    "decision-record"
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "skill_name": "api-design",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Design the public REST API for our job postings: list, search, get, create, update, close, plus webhooks for application events. Existing internal API is camelCase JSON with cursor pagination.",
+      "expected_output": "Full draft with contested decisions delegated to council and cited",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "/api-design docs/api/jobs.md \u2014 feedback: partners want bulk create, and we need to support API keys per integration not per user.",
+      "expected_output": "Iteration: in-place update, Changelog line, decision re-trigger where feedback challenges a record",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "design an SDK surface for our embeddable apply widget",
+      "expected_output": "Short input: intake asks up to 3 questions or drafts with defaults; likely no council run needed",
+      "files": []
+    }
+  ]
+}
