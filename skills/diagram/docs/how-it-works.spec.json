@@ -1,0 +1,20 @@
+{
+  "layout": "flow", "direction": "TB",
+  "nodes": [
+    {"id": "idea", "label": "What to show", "note": "your words", "shape": "ellipse", "tone": "muted"},
+    {"id": "spec", "label": "Spec", "note": "nodes, edges, layout", "tone": "1"},
+    {"id": "gen", "label": "Generator", "note": "does the geometry", "tone": "1"},
+    {"id": "file", "label": ".excalidraw", "note": "editable anywhere", "tone": "1"},
+    {"id": "prev", "label": "Preview", "note": "check, fix, repeat", "tone": "3"},
+    {"id": "svg", "label": "SVG", "note": "into the doc", "tone": "1"}
+  ],
+  "edges": [
+    {"from": "idea", "to": "spec"},
+    {"from": "spec", "to": "gen"},
+    {"from": "gen", "to": "file"},
+    {"from": "file", "to": "prev"},
+    {"from": "file", "to": "svg"},
+    {"from": "prev", "to": "spec", "label": "fix spec", "style": "dashed"}
+  ],
+  "legend": [{"tone": "1", "label": "files you keep"}, {"tone": "3", "label": "look at it"}]
+}

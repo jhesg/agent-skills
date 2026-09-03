@@ -64,9 +64,8 @@ def to_svg(doc: dict) -> str:
             pts = f"{x+w/2},{y} {x+w},{y+h/2} {x+w/2},{y+h} {x},{y+h/2}"
             out.append(f'<polygon points="{pts}" fill="{fill}" stroke="{stroke}" stroke-width="2"{dash}/>')
         elif t == "arrow":
-            (x0, y0), (x1, y1) = e["points"][0], e["points"][-1]
-            ax, ay, bx, by = x + x0, y + y0, x + x1, y + y1
-            out.append(f'<line x1="{ax}" y1="{ay}" x2="{bx}" y2="{by}" stroke="{stroke}" stroke-width="2"{dash} marker-end="url(#ah-{stroke[1:]})"/>')
+            pts = " ".join(f"{x+px},{y+py}" for px, py in e["points"])
+            out.append(f'<polyline points="{pts}" fill="none" stroke="{stroke}" stroke-width="2"{dash} marker-end="url(#ah-{stroke[1:]})"/>')
         elif t == "text":
             size = e.get("fontSize", 16); lines = e["text"].split("\n")
             c = by_id.get(e.get("containerId"))

@@ -1,55 +1,48 @@
 # agent-skills
 
-Monorepo for agent skills and the artifacts that power them.
+Skills for Claude Code that help you think before you build: decide hard calls with a panel, write the documents your team expects, and draw the pictures that explain them. Each skill installs on its own and works alone.
 
-Two halves, one rule between them:
+![How the skills fit together](docs/diagrams/how-skills-fit.svg)
 
-- `skills/` is what ships. Every folder is a complete skill: `SKILL.md`, references, scripts, and built artifacts. Copy one folder, or install it as a plugin, and it works. Nothing in it points outside itself.
-- Everything else (`packages/`, `artifacts/`) is how the shipped artifacts get made. Shared React primitives, design tokens, runtime helpers, and one Vite app per artifact. Builds emit a single dependency-free HTML file into the owning skill's `assets/`.
+## The skills
 
-Install one skill:
+| Skill | One line | Start here |
+|---|---|---|
+| **council** | Five AI advisers debate your decision, score each other blind, a chairman gives one verdict, a week plan, and a decision record | [README](skills/council/README.md) |
+| **spec** | Technical spec for one feature, hard calls sent to council | [README](skills/spec/README.md) |
+| **system-design** | Architecture document: components, flow, capacity, failure modes | [README](skills/system-design/README.md) |
+| **api-design** | API or SDK contract: resources, schemas, errors, versioning | [README](skills/api-design/README.md) |
+| **prd** | Product requirements: problem, users, goals with numbers, scope, launch | [README](skills/prd/README.md) |
+| **diagram** | Excalidraw diagrams from a short spec, clean layout, consistent colours | [README](skills/diagram/README.md) |
+
+The document skills call council for decisions that are genuinely contested and cite the record it writes. Every document, plan, and record has a Feedback section: write in it, run the skill again, the file updates in place. Stop when you are happy.
+
+## Install
 
 ```bash
 claude plugin marketplace add jhesg/agent-skills
 claude plugin install council@jhesg-agent-skills
+claude plugin install spec@jhesg-agent-skills        # repeat for the others you want
 ```
 
-Or copy `skills/<name>/` anywhere Claude looks for skills.
+Restart your Claude Code session after installing.
 
-## Skills
-
-| Skill | What it does | Artifact |
-|---|---|---|
-| [council](skills/council) | Five-adviser decision council with independent subagents, blind review, verdict, plan.md, living decision record | live transcript viewer |
-| [diagram](skills/diagram) | Excalidraw diagrams from a declarative spec, deterministic layout, shared palette | diagram preview + SVG export |
-| [spec](skills/spec) | Technical spec for one feature; contested decisions go to council | — |
-| [system-design](skills/system-design) | System design: components, flow, capacity, failure modes | — |
-| [api-design](skills/api-design) | API or SDK surface: resources, contracts, errors, versioning | — |
-| [prd](skills/prd) | Product requirements: problem, users, goals, scope, launch | — |
-
-## Layout
+## First run
 
 ```
-skills/<name>/            shipped, self-contained, built assets committed
-artifacts/<name>/         Vite + React source for one skill's artifact
-packages/ui/              @agent-skills/ui        design tokens + primitives
-packages/artifact-kit/    @agent-skills/artifact-kit  runtime helpers (live/static data, jsonl, urls)
-packages/vite-config/     @agent-skills/vite-config   single-file build preset
-docs/                     architecture, guidelines, design system
-scripts/                  validate, package, scaffold
+/council I'm torn between leading our 9-month services migration and shipping the billing engine sales says blocks 3 deals. Same comp, never led a platform project. Should I take the migration?
 ```
 
-## Develop
+A transcript opens in your browser while the panel works. You get a verdict, a plan for the week, and a decision record you can share.
+
+## For contributors
+
+Skills live in `skills/`, one folder each, self-contained. Their browser artifacts are built from shared React packages in `packages/` and `artifacts/`, then committed into the skill as a single HTML file, so users never need a build step.
 
 ```bash
 pnpm install
-pnpm dev council-transcript      # vite dev server for one artifact, fixture data
-pnpm build                       # all artifacts → skills/*/assets/*.html
-pnpm check                       # validate + typecheck + build + assets up to date
-pnpm package council             # dist/council.skill
-pnpm new-skill <name>            # scaffold skill + artifact
+pnpm check          # validate skills, typecheck, build artifacts, confirm nothing drifted
+pnpm new-skill foo  # scaffold a skill and its artifact
 ```
 
-Built assets are committed. `pnpm check` fails if a build changes them, so `skills/` never drifts from source.
-
-See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for why it is shaped this way and [docs/ROADMAP.md](docs/ROADMAP.md) for the document skills that will consume council decisions.
+More: [architecture](docs/ARCHITECTURE.md), [skill guidelines](docs/SKILL_GUIDELINES.md), [artifact guidelines](docs/ARTIFACT_GUIDELINES.md), [design system](docs/DESIGN_SYSTEM.md), [roadmap](docs/ROADMAP.md), and [AGENTS.md](AGENTS.md) for the rules agents follow in this repo.

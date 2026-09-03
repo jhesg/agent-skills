@@ -79,7 +79,7 @@ def _node(n, x, y):
     return box, txt
 
 
-def _edge(e, a, b, direction):
+def _edge(e, a, b, direction, route="straight", clearance=0):
     # Anchor on box edges facing each other.
     ax, ay = a["x"] + a["width"] / 2, a["y"] + a["height"] / 2
     bx, by = b["x"] + b["width"] / 2, b["y"] + b["height"] / 2
@@ -91,8 +91,21 @@ def _edge(e, a, b, direction):
         ex = bx; ey = b["y"] if by > ay else b["y"] + b["height"]
     t = TONES.get(e.get("tone", "muted"), TONES["muted"])
     arrow = _base("arrow", sx, sy, ex - sx, ey - sy, e.get("tone", "muted"), backgroundColor="transparent", roundness={"type": 2})
+    if route == "under":      # LR back edge: drop below all nodes, run back, rise into the target
+        sx, sy = ax, a["y"] + a["height"]; ex, ey = bx, b["y"] + b["height"]
+        low = clearance - sy
+        pts = [[0, 0], [0, low], [ex - sx, low], [ex - sx, ey - sy]]
+        arrow["x"], arrow["y"] = sx, sy
+    elif route == "side":     # TB back edge: swing out to the right of all nodes
+        sx, sy = a["x"] + a["width"], ay; ex, ey = b["x"] + b["width"], by
+        far = clearance - sx
+        pts = [[0, 0], [far, 0], [far, ey - sy], [ex - sx, ey - sy]]
+        arrow["x"], arrow["y"] = sx, sy
+    else:
+        pts = [[0, 0], [ex - sx, ey - sy]]
+    arrow["width"] = max(abs(q[0]) for q in pts); arrow["height"] = max(abs(q[1]) for q in pts)
     arrow.update({
-        "points": [[0, 0], [ex - sx, ey - sy]],
+        "points": pts,
         "startBinding": {"elementId": a["id"], "focus": 0, "gap": 4},
         "endBinding": {"elementId": b["id"], "focus": 0, "gap": 4},
         "startArrowhead": None, "endArrowhead": "arrow", "lastCommittedPoint": None,
@@ -103,44 +116,58 @@ def _edge(e, a, b, direction):
     out = [arrow]
     if e.get("label"):
         lw = max(60, len(e["label"]) * 8)
-        lbl = _text((sx + ex) / 2 - lw / 2, (sy + ey) / 2 - 22, lw, 20, e["label"], size=13, container=arrow["id"])
+        if route == "under":
+            lx, ly = arrow["x"] + pts[2][0] / 2 - lw / 2, arrow["y"] + pts[1][1] + 4
+        elif route == "side":
+            lx, ly = arrow["x"] + pts[1][0] + 6, arrow["y"] + pts[2][1] / 2 - 10
+        else:
+            lx, ly = (sx + ex) / 2 - lw / 2, (sy + ey) / 2 - 22
+        lbl = _text(lx, ly, lw, 20, e["label"], size=13, container=arrow["id"], align="left" if route == "side" else "center")
         arrow["boundElements"].append({"id": lbl["id"], "type": "text"})
         out.append(lbl)
     return out
 
 
 def _layers(nodes, edges):
-    """Longest-path layering over a DAG; back edges ignored for ranking."""
+    """Kahn layering. When a cycle blocks progress, the blocked node with the most processed
+    predecessors is released; the edges that pointed back at it become back edges. Returns (layers, rank)."""
     ids = [n["id"] for n in nodes]
     succ = defaultdict(list); indeg = defaultdict(int)
     for e in edges:
         if e["from"] in ids and e["to"] in ids and e["from"] != e["to"]:
             succ[e["from"]].append(e["to"]); indeg[e["to"]] += 1
-    rank = {i: 0 for i in ids}
-    order, q = [], [i for i in ids if indeg[i] == 0] or ids[:1]
-    seen = set(q)
-    while q:
-        u = q.pop(0); order.append(u)
+    rank = {i: 0 for i in ids}; done = set()
+    q = [i for i in ids if indeg[i] == 0]
+    while len(done) < len(ids):
+        if not q:  # cycle: release the node whose remaining in-degree is smallest
+            pending = [i for i in ids if i not in done]
+            pick = min(pending, key=lambda i: (indeg[i], ids.index(i)))
+            indeg[pick] = 0; q.append(pick)
+        u = q.pop(0)
+        if u in done: continue
+        done.add(u)
         for v in succ[u]:
+            if v in done: continue
             rank[v] = max(rank[v], rank[u] + 1)
-            if v not in seen:
-                seen.add(v); q.append(v)
-    for i in ids:  # nodes unreachable from sources (cycles): place after their predecessors
-        if i not in seen: rank[i] = max([rank.get(e["from"], 0) + 1 for e in edges if e["to"] == i] or [0])
+            indeg[v] -= 1
+            if indeg[v] <= 0: q.append(v)
     layers = defaultdict(list)
     for i in ids: layers[rank[i]].append(i)
-    return [layers[k] for k in sorted(layers)]
+    return [layers[k] for k in sorted(layers)], rank
 
 
 def build(spec):
+    global NODE_W
     nodes = spec.get("nodes", []); edges = spec.get("edges", []); groups = spec.get("groups", [])
+    longest = max([len(l) for n in nodes for l in (n["label"] + ("\n" + n["note"] if n.get("note") else "")).split("\n")] or [0])
+    NODE_W = max(180, longest * 8 + 28)
     layout = spec.get("layout", "flow"); direction = spec.get("direction", "LR")
     by_id = {n["id"]: n for n in nodes}
     elements, boxes = [], {}
     y0 = PAD + (48 if spec.get("title") else 0)
 
     def place_flow(sub_nodes, sub_edges, ox, oy, direction):
-        layers = _layers(sub_nodes, sub_edges)
+        layers, _ = _layers(sub_nodes, sub_edges)
         maxlen = max((len(l) for l in layers), default=1)
         for li, layer in enumerate(layers):
             for ni, nid in enumerate(layer):
@@ -175,9 +202,18 @@ def build(spec):
     else:
         place_flow(nodes, edges, PAD, y0, direction)
 
+    _, rank = _layers(nodes, edges)
+    node_boxes = [b for b in boxes.values()]
+    bottom = max((b["y"] + b["height"] for b in node_boxes), default=0) + GAP_Y
+    right = max((b["x"] + b["width"] for b in node_boxes), default=0) + GAP_X
     for e in edges:
         if e["from"] in boxes and e["to"] in boxes:
-            elements.extend(_edge(e, boxes[e["from"]], boxes[e["to"]], direction))
+            back = e.get("back") or rank.get(e["to"], 0) <= rank.get(e["from"], 0)
+            if back and layout == "flow":
+                route, clr = ("under", bottom) if direction == "LR" else ("side", right)
+            else:
+                route, clr = "straight", 0
+            elements.extend(_edge(e, boxes[e["from"]], boxes[e["to"]], direction, route, clr))
     # text elements bound to boxes must be updated after frames assigned
     for el in elements:
         if el["type"] == "text" and el.get("containerId") in boxes:

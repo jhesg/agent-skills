@@ -1,0 +1,19 @@
+{
+  "layout": "flow", "direction": "TB",
+  "nodes": [
+    {"id": "prd", "label": "prd", "note": "what to build", "tone": "1"},
+    {"id": "sd", "label": "system-design", "note": "how it fits together", "tone": "1"},
+    {"id": "spec", "label": "spec", "note": "one feature", "tone": "1"},
+    {"id": "api", "label": "api-design", "note": "the contract", "tone": "1"},
+    {"id": "council", "label": "council", "note": "decides the hard calls", "tone": "2"},
+    {"id": "diagram", "label": "diagram", "note": "draws for all of them", "tone": "3"}
+  ],
+  "edges": [
+    {"from": "prd", "to": "council", "style": "dashed"},
+    {"from": "sd", "to": "council", "style": "dashed"},
+    {"from": "spec", "to": "council", "style": "dashed"},
+    {"from": "api", "to": "council", "style": "dashed"},
+    {"from": "council", "to": "diagram", "style": "dashed"}
+  ],
+  "legend": [{"tone": "1", "label": "document skills"}, {"tone": "2", "label": "decision engine"}, {"tone": "3", "label": "utility"}]
+}

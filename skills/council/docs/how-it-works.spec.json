@@ -1,0 +1,22 @@
+{
+  "layout": "flow", "direction": "TB",
+  "nodes": [
+    {"id": "you", "label": "You", "note": "one stuck decision", "shape": "ellipse", "tone": "muted"},
+    {"id": "chair", "label": "Chairman", "note": "brief, sanity check", "tone": "1"},
+    {"id": "panel", "label": "5 advisers", "note": "separate contexts", "tone": "2"},
+    {"id": "viewer", "label": "Live transcript", "note": "in your browser", "shape": "ellipse", "tone": "3"},
+    {"id": "review", "label": "Blind review", "note": "they score each other", "tone": "2"},
+    {"id": "verdict", "label": "Verdict", "note": "why others lost", "tone": "1"},
+    {"id": "out", "label": "plan.md + record", "note": "edit, run again", "tone": "1"}
+  ],
+  "edges": [
+    {"from": "you", "to": "chair"},
+    {"from": "chair", "to": "panel", "label": "same brief"},
+    {"from": "chair", "to": "viewer", "style": "dashed", "tone": "3"},
+    {"from": "panel", "to": "review"},
+    {"from": "review", "to": "verdict"},
+    {"from": "verdict", "to": "out"},
+    {"from": "out", "to": "chair", "label": "feedback", "style": "dashed"}
+  ],
+  "legend": [{"tone": "1", "label": "talks to you"}, {"tone": "2", "label": "advisers"}, {"tone": "3", "label": "watch along"}]
+}

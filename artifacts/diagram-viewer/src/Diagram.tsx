@@ -41,8 +41,8 @@ export const Diagram = forwardRef<SVGSVGElement, { elements: ExElement[] }>(func
             return <polygon key={e.id} points={`${x + w / 2},${y} ${x + w},${y + h / 2} ${x + w / 2},${y + h} ${x},${y + h / 2}`} fill={fill} stroke={stroke} strokeWidth={2} strokeDasharray={dash} />;
           }
           case 'arrow': {
-            const p0 = e.points?.[0] ?? [0, 0], p1 = e.points?.[e.points.length - 1] ?? [0, 0];
-            return <line key={e.id} x1={e.x + p0[0]} y1={e.y + p0[1]} x2={e.x + p1[0]} y2={e.y + p1[1]} stroke={stroke} strokeWidth={2} strokeDasharray={dash} markerEnd={`url(#ah-${stroke.slice(1)})`} />;
+            const pts = (e.points ?? [[0, 0]]).map(([px, py]) => `${e.x + px},${e.y + py}`).join(' ');
+            return <polyline key={e.id} points={pts} fill="none" stroke={stroke} strokeWidth={2} strokeDasharray={dash} markerEnd={`url(#ah-${stroke.slice(1)})`} />;
           }
           case 'text': {
             const size = e.fontSize ?? 16, lines = (e.text ?? '').split('\n');

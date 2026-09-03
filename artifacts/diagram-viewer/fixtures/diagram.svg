@@ -1,31 +1,31 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="8 8 1038 486.0" width="1038" height="486.0" font-family="Helvetica, Arial, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="8 8 1134 486.0" width="1134" height="486.0" font-family="Helvetica, Arial, sans-serif">
 <defs><marker id="ah-6b6862" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6b6862"/></marker><marker id="ah-9b2c2c" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9b2c2c"/></marker></defs>
-<rect x="8" y="8" width="1038" height="486.0" fill="#ffffff"/>
+<rect x="8" y="8" width="1134" height="486.0" fill="#ffffff"/>
 <text x="32" y="54.0" font-size="22" text-anchor="start" fill="#1c1b19">Notification pipeline, option A: outbox + worker</text>
-<rect x="32" y="204.0" width="180" height="64" rx="10" fill="#dbe7f3" stroke="#2f5d8a" stroke-width="2"/>
-<text x="122.0" y="242.0" font-size="16" text-anchor="middle" fill="#1c1b19">API handler</text>
-<rect x="302" y="204.0" width="180" height="64" rx="10" fill="#dbe7f3" stroke="#2f5d8a" stroke-width="2"/>
-<text x="392.0" y="232.5" font-size="14" text-anchor="middle" fill="#1c1b19">Postgres</text>
-<text x="392.0" y="250.0" font-size="12" text-anchor="middle" fill="#1c1b19">outbox table, same tx</text>
-<rect x="572" y="204.0" width="180" height="64" rx="10" fill="#dbe7f3" stroke="#2f5d8a" stroke-width="2"/>
-<text x="662.0" y="232.5" font-size="14" text-anchor="middle" fill="#1c1b19">Worker</text>
-<text x="662.0" y="250.0" font-size="12" text-anchor="middle" fill="#1c1b19">polls, idempotency key</text>
-<ellipse cx="932.0" cy="112.0" rx="90.0" ry="32.0" fill="#e1ead7" stroke="#4f6b3a" stroke-width="2"/>
-<text x="932.0" y="118.0" font-size="16" text-anchor="middle" fill="#1c1b19">SendGrid</text>
-<ellipse cx="932.0" cy="236.0" rx="90.0" ry="32.0" fill="#e1ead7" stroke="#4f6b3a" stroke-width="2"/>
-<text x="932.0" y="242.0" font-size="16" text-anchor="middle" fill="#1c1b19">APNs / FCM</text>
-<polygon points="932.0,328.0 1022,360.0 932.0,392.0 842,360.0" fill="#f3dada" stroke="#9b2c2c" stroke-width="2"/>
-<text x="932.0" y="366.0" font-size="16" text-anchor="middle" fill="#1c1b19">Dead letter</text>
-<line x1="212" y1="236.0" x2="302" y2="236.0" stroke="#6b6862" stroke-width="2" marker-end="url(#ah-6b6862)"/>
-<text x="257.0" y="227.0" font-size="13" text-anchor="middle" fill="#1c1b19">insert outbox</text>
-<line x1="482" y1="236.0" x2="572" y2="236.0" stroke="#6b6862" stroke-width="2" marker-end="url(#ah-6b6862)"/>
-<text x="527.0" y="227.0" font-size="13" text-anchor="middle" fill="#1c1b19">poll</text>
-<line x1="752" y1="236.0" x2="842" y2="112.0" stroke="#6b6862" stroke-width="2" marker-end="url(#ah-6b6862)"/>
-<text x="797.0" y="165.0" font-size="13" text-anchor="middle" fill="#1c1b19">send</text>
-<line x1="752" y1="236.0" x2="842" y2="236.0" stroke="#6b6862" stroke-width="2" marker-end="url(#ah-6b6862)"/>
-<text x="797.0" y="227.0" font-size="13" text-anchor="middle" fill="#1c1b19">send</text>
-<line x1="752" y1="236.0" x2="842" y2="360.0" stroke="#9b2c2c" stroke-width="2" stroke-dasharray="8 6" marker-end="url(#ah-9b2c2c)"/>
-<text x="797.0" y="289.0" font-size="13" text-anchor="middle" fill="#1c1b19">after 5 retries</text>
+<rect x="32" y="204.0" width="204" height="64" rx="10" fill="#dbe7f3" stroke="#2f5d8a" stroke-width="2"/>
+<text x="134.0" y="242.0" font-size="16" text-anchor="middle" fill="#1c1b19">API handler</text>
+<rect x="326" y="204.0" width="204" height="64" rx="10" fill="#dbe7f3" stroke="#2f5d8a" stroke-width="2"/>
+<text x="428.0" y="232.5" font-size="14" text-anchor="middle" fill="#1c1b19">Postgres</text>
+<text x="428.0" y="250.0" font-size="12" text-anchor="middle" fill="#1c1b19">outbox table, same tx</text>
+<rect x="620" y="204.0" width="204" height="64" rx="10" fill="#dbe7f3" stroke="#2f5d8a" stroke-width="2"/>
+<text x="722.0" y="232.5" font-size="14" text-anchor="middle" fill="#1c1b19">Worker</text>
+<text x="722.0" y="250.0" font-size="12" text-anchor="middle" fill="#1c1b19">polls, idempotency key</text>
+<ellipse cx="1016.0" cy="112.0" rx="102.0" ry="32.0" fill="#e1ead7" stroke="#4f6b3a" stroke-width="2"/>
+<text x="1016.0" y="118.0" font-size="16" text-anchor="middle" fill="#1c1b19">SendGrid</text>
+<ellipse cx="1016.0" cy="236.0" rx="102.0" ry="32.0" fill="#e1ead7" stroke="#4f6b3a" stroke-width="2"/>
+<text x="1016.0" y="242.0" font-size="16" text-anchor="middle" fill="#1c1b19">APNs / FCM</text>
+<polygon points="1016.0,328.0 1118,360.0 1016.0,392.0 914,360.0" fill="#f3dada" stroke="#9b2c2c" stroke-width="2"/>
+<text x="1016.0" y="366.0" font-size="16" text-anchor="middle" fill="#1c1b19">Dead letter</text>
+<polyline points="236,236.0 326,236.0" fill="none" stroke="#6b6862" stroke-width="2" marker-end="url(#ah-6b6862)"/>
+<text x="281.0" y="227.0" font-size="13" text-anchor="middle" fill="#1c1b19">insert outbox</text>
+<polyline points="530,236.0 620,236.0" fill="none" stroke="#6b6862" stroke-width="2" marker-end="url(#ah-6b6862)"/>
+<text x="575.0" y="227.0" font-size="13" text-anchor="middle" fill="#1c1b19">poll</text>
+<polyline points="824,236.0 914,112.0" fill="none" stroke="#6b6862" stroke-width="2" marker-end="url(#ah-6b6862)"/>
+<text x="869.0" y="165.0" font-size="13" text-anchor="middle" fill="#1c1b19">send</text>
+<polyline points="824,236.0 914,236.0" fill="none" stroke="#6b6862" stroke-width="2" marker-end="url(#ah-6b6862)"/>
+<text x="869.0" y="227.0" font-size="13" text-anchor="middle" fill="#1c1b19">send</text>
+<polyline points="824,236.0 914,360.0" fill="none" stroke="#9b2c2c" stroke-width="2" stroke-dasharray="8 6" marker-end="url(#ah-9b2c2c)"/>
+<text x="869.0" y="289.0" font-size="13" text-anchor="middle" fill="#1c1b19">after 5 retries</text>
 <rect x="32" y="452.0" width="18" height="18" rx="10" fill="#dbe7f3" stroke="#2f5d8a" stroke-width="2"/>
 <text x="58" y="463.0" font-size="13" text-anchor="start" fill="#1c1b19">owned</text>
 <rect x="232" y="452.0" width="18" height="18" rx="10" fill="#e1ead7" stroke="#4f6b3a" stroke-width="2"/>

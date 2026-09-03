@@ -1,0 +1,20 @@
+{
+  "layout": "flow", "direction": "TB",
+  "nodes": [
+    {"id": "ask", "label": "Your ask", "note": "plus files, repo", "shape": "ellipse", "tone": "muted"},
+    {"id": "intake", "label": "Intake", "note": "known, guessed, missing", "tone": "1"},
+    {"id": "find", "label": "Hard calls", "note": "obvious: decide inline", "tone": "1"},
+    {"id": "council", "label": "council", "note": "max 3, writes records", "shape": "ellipse", "tone": "3"},
+    {"id": "draft", "label": "Draft + checklist", "note": "cites the records", "tone": "1"},
+    {"id": "out", "label": "prd.md", "note": "plus decisions/", "tone": "1"}
+  ],
+  "edges": [
+    {"from": "ask", "to": "intake"},
+    {"from": "intake", "to": "find"},
+    {"from": "find", "to": "council", "label": "contested", "style": "dashed", "tone": "3"},
+    {"from": "find", "to": "draft"},
+    {"from": "draft", "to": "out"},
+    {"from": "out", "to": "intake", "label": "feedback", "style": "dashed"}
+  ],
+  "legend": [{"tone": "1", "label": "this skill"}, {"tone": "3", "label": "council, if installed"}]
+}
