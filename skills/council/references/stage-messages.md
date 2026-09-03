@@ -11,6 +11,33 @@ Write your take on the brief above. 150 words max. Save it to outbox/<role>/stag
 Reply with exactly one line: done: outbox/<role>/stage2.md
 ```
 
+## Stage 1b packet (`inbox/<role>/stage1b-propose.md`, proposers only)
+
+```
+STAGE 1B: PROPOSE OPTIONS
+
+The brief below has no options yet. The user asked the council to propose them. Propose from your lens, as your charter describes. Up to 2 options.
+
+For each option:
+NAME: <3–6 words>
+WHAT: <one line>
+FIRST IRREVERSIBLE STEP: <what, and how far in>
+COST TO UNDO: <one line>
+
+120 words total. Do not rank, do not recommend; that comes later and from others. Save to outbox/<role>/stage1b.md.
+Reply with exactly one line: done: outbox/<role>/stage1b.md
+
+---
+BRIEF
+<brief verbatim, OPTIONS marked "to be proposed">
+```
+
+Pointer message to send:
+
+```
+Stage 1b. Read inbox/<role>/stage1b-propose.md and do what it says.
+```
+
 ## Stage 3 packet (`inbox/<role>/stage3-packet.md`)
 
 ```

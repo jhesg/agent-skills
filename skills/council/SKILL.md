@@ -81,7 +81,7 @@ Run the guard, even on explicit `/council` invocation:
 
 | Check | Fails when |
 |---|---|
-| Real options | Fewer than 2 distinct options |
+| Real decision | One option and the user is not asking for alternatives. Zero or one option is fine when the user asks the council to propose them; mark `OPTIONS: to be proposed` and run Stage 1b |
 | Reversibility | Trivially undone in a day or less |
 | Stakes | No consequence beyond the week and none inferable |
 
@@ -95,7 +95,7 @@ If checks pass but fields are `missing`, ask at most 3 questions and wait. If th
 
 ## Stage 1: Spawn the panel
 
-For each role: write `inbox/<role>/stage2-task.md` containing the brief verbatim plus the Stage 2 task line from `references/stage-messages.md`. Log a pointer. Then spawn five subagents in one turn, `run_in_background: true`, prompt:
+For each role: write `inbox/<role>/stage2-task.md` containing the brief verbatim plus the Stage 2 task line from `references/stage-messages.md`. If options are still to be proposed, skip that file for now and prepare Stage 1b packets instead. Log a pointer. Then spawn five subagents in one turn, `run_in_background: true`, prompt:
 
 ```
 <adviser charter file content, verbatim>
@@ -103,10 +103,28 @@ For each role: write `inbox/<role>/stage2-task.md` containing the brief verbatim
 ---
 RUN DIRECTORY: <absolute run path>
 YOUR ROLE ID: <role>
-Read inbox/<role>/stage2-task.md and do what it says.
+Read inbox/<role>/<first task file> and do what it says.
 ```
 
+The first task file is `stage2-task.md`, or `stage1b-propose.md` for the three proposers when options are to be discovered. Advisers not involved in Stage 1b are spawned later, at Stage 2, so they never see the proposal round.
+
 Record each agent's ID/name. Stages 3 and 5 continue these same agents with `SendMessage`; a fresh `Agent` call would lose context and break the design. If an agent is lost, respawn it and replay its inbox from files.
+
+## Stage 1b: Option discovery (only when `OPTIONS: to be proposed`)
+
+Runs after spawning, before Stage 2. Three advisers propose, each from their own lens, so the option set is not one person's framing:
+
+| Adviser | Asked for |
+|---|---|
+| First-Principles | options that fall out of the problem once the current framing is stripped |
+| Expansionist | the option with the largest upside if it works |
+| Executor | the cheapest option to start and the cheapest to stop |
+
+Write `inbox/<role>/stage1b-propose.md` from the Stage 1b template for those three, send pointers, log. Each returns up to 2 options: name, one line, first irreversible step, cost to undo, 120 words total. The other two advisers idle; they judge options, they do not author them, so their later critique stays independent.
+
+Consolidate: merge duplicates, keep at most 4, write them into the brief as `OPTIONS:` tagged `proposed`, in the order received, no ranking. Fill `REVERSIBILITY` per option from the proposals. Log a `note` naming which adviser proposed what; the brief itself carries no attribution, so the panel argues the option, not the author. Show the updated brief to the user. They may edit, drop, or add. Freeze, then continue to Stage 2 with the frozen brief written to every inbox `stage2-task.md`.
+
+Why the user sees it before Stage 2: options are the frame. If the council debates a set the user would never accept, everything after is wasted.
 
 ## Stage 2: Author
 

@@ -18,6 +18,12 @@
       "prompt": "We're deciding whether to raise prices 30% for existing customers in January or grandfather them and only raise for new signups. ~200 customers, churn is 2%/mo, we need to hit profitability by Q3. I'm torn. Run the council.",
       "expected_output": "Brief marks stakeholders as missing and asks up to 3 questions before spawning, or proceeds with a labeled ASSUMPTIONS block if told to. Verdict allows 'Not decidable, need X' if the panel exposes a missing fact.",
       "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Our Next.js Pages Router app has LCP p75 of 3.8s on the two money pages, Emotion SSR and hydration dominate. 6 frontend engineers. I don't have options yet, I want the council to propose the directions and then debate them.",
+      "expected_output": "Guard passes with OPTIONS to be proposed. Stage 1b runs with First-Principles, Expansionist, Executor proposing; Chairman consolidates to \u22644 options without attribution, shows brief, then normal stages.",
+      "files": []
     }
   ]
 }

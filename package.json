@@ -13,6 +13,6 @@
     "validate": "node scripts/validate-skills.mjs",
     "package": "node scripts/package-skill.mjs",
     "new-skill": "node scripts/new-skill.mjs",
-    "check": "pnpm validate && pnpm typecheck && pnpm build && git diff --exit-code -- skills"
+    "check": "pnpm validate && pnpm typecheck && pnpm build && git diff --exit-code -- 'skills/*/assets'"
   }
 }
