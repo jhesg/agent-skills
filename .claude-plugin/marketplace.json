@@ -14,7 +14,18 @@
       "description": "Five-adviser decision council: independent subagents, blind cross-review, Chairman verdict, live transcript viewer, plan.md with feedback re-trigger",
       "source": "./",
       "strict": false,
-      "skills": ["./skills/council"]
+      "skills": [
+        "./skills/council"
+      ]
+    },
+    {
+      "name": "spec",
+      "description": "Technical spec document skill: a technical spec for one feature: behaviour, data, interfaces, rollout, testing; delegates contested decisions to council",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./skills/spec"
+      ]
     }
   ]
 }

@@ -1,0 +1,23 @@
+{
+  "skill_name": "spec",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Write a tech spec for adding saved searches to our job board. Users save filters, get a daily email digest of new matches. Next.js frontend, NestJS API, Postgres. We already have a notifications table and a daily cron.",
+      "expected_output": "Full draft with contested decisions delegated to council and cited",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "/spec docs/specs/saved-searches.md \u2014 I added feedback: the digest should be per-search not per-user, and legal wants unsubscribe per search. Update the spec.",
+      "expected_output": "Iteration: in-place update, Changelog line, decision re-trigger where feedback challenges a record",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "spec for renaming the 'company' entity to 'organisation' across the API and DB",
+      "expected_output": "Short input: intake asks up to 3 questions or drafts with defaults; likely no council run needed",
+      "files": []
+    }
+  ]
+}
