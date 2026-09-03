@@ -2,7 +2,7 @@
 
 Skills for Claude Code that help you think before you build: decide hard calls with a panel, write the documents your team expects, and draw the pictures that explain them. Each skill installs on its own and works alone.
 
-![How the skills fit together](docs/diagrams/how-skills-fit.svg)
+![How the skills fit together](https://raw.githubusercontent.com/jhesg/agent-skills/main/docs/diagrams/how-skills-fit.svg)
 
 ## The skills
 

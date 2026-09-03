@@ -12,7 +12,7 @@ Not for factual questions, or for choices you can undo in an afternoon. The skil
 
 ## How it works
 
-![How council works](docs/how-it-works.svg)
+![How council works](https://raw.githubusercontent.com/jhesg/agent-skills/main/skills/council/docs/how-it-works.svg)
 
 1. The chairman turns your message into a brief and checks the decision is worth a panel.
 2. Five advisers, each in its own context, answer the same brief: contrarian, first-principles, expansionist, assumption auditor, executor.

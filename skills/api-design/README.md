@@ -12,7 +12,7 @@ Not for the internals behind the API (use spec or system-design) or for product 
 
 ## How it works
 
-![How api-design works](docs/how-it-works.svg)
+![How api-design works](https://raw.githubusercontent.com/jhesg/agent-skills/main/skills/api-design/docs/how-it-works.svg)
 
 1. Intake: the skill reads your message, files, and repo, fills the template, and marks what it knows, what it guessed, and what is missing. It asks at most three questions.
 2. It finds the hard calls. Obvious ones are decided inline with a one-line reason. Genuinely contested ones, at most three, go to the [council](https://github.com/jhesg/agent-skills/tree/main/skills/council) skill, which writes a decision record next to your document.

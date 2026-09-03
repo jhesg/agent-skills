@@ -12,7 +12,7 @@ Not for how to build it (use spec, system-design, or api-design).
 
 ## How it works
 
-![How prd works](docs/how-it-works.svg)
+![How prd works](https://raw.githubusercontent.com/jhesg/agent-skills/main/skills/prd/docs/how-it-works.svg)
 
 1. Intake: the skill reads your message, files, and repo, fills the template, and marks what it knows, what it guessed, and what is missing. It asks at most three questions.
 2. It finds the hard calls. Obvious ones are decided inline with a one-line reason. Genuinely contested ones, at most three, go to the [council](https://github.com/jhesg/agent-skills/tree/main/skills/council) skill, which writes a decision record next to your document.

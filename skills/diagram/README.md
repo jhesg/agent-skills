@@ -12,7 +12,7 @@ Not for lists or two-step flows. The skill will suggest a table or a sentence in
 
 ## How it works
 
-![How diagram works](docs/how-it-works.svg)
+![How diagram works](https://raw.githubusercontent.com/jhesg/agent-skills/main/skills/diagram/docs/how-it-works.svg)
 
 1. You say what the picture should show. The skill writes a small spec: nodes, edges, layout.
 2. A script does the geometry. No overlapping boxes, arrows land where they should.

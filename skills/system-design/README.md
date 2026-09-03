@@ -12,7 +12,7 @@ Not for one feature inside an existing design (use spec) or an API contract (api
 
 ## How it works
 
-![How system-design works](docs/how-it-works.svg)
+![How system-design works](https://raw.githubusercontent.com/jhesg/agent-skills/main/skills/system-design/docs/how-it-works.svg)
 
 1. Intake: the skill reads your message, files, and repo, fills the template, and marks what it knows, what it guessed, and what is missing. It asks at most three questions.
 2. It finds the hard calls. Obvious ones are decided inline with a one-line reason. Genuinely contested ones, at most three, go to the [council](https://github.com/jhesg/agent-skills/tree/main/skills/council) skill, which writes a decision record next to your document.
