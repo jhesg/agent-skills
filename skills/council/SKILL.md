@@ -163,6 +163,10 @@ Write `inbox/executor/stage5-verdict.md` from the Stage 5 template with the verd
 
 Write `<run>/plan.md` from `references/plan-template.md`: brief, verdict, week plan, score table, links, and an empty Feedback section. Write `decision-record.md` from `references/adr-template.md`, every run, from run files only, at `RECORD PATH` if the brief names one, else in the run dir. Send both (`SendUserFile` when available, otherwise the paths). Two projections of one run: plan is for acting this week, record is for whoever reopens the question later. The plan is per round; the record is one living file per decision, updated in place on every later round with a History line. The user edits Feedback and re-triggers with `/council <path>/plan.md`; the re-trigger procedure is in `references/plan-template.md`. Rounds are unlimited, the user decides when to stop.
 
+## Diagrams
+
+The record may carry one comparison diagram, via the `diagram` skill, when three or more options have visibly different shapes. Rules are in `references/adr-template.md` under "Options at a glance". Two options, or options that differ only in a vendor name, get no picture; the pros-and-cons table is the comparison.
+
 ## Downstream documents
 
 PRDs, specs, API designs, and system designs are not council outputs. They are separate skills that consume `decision-record.md` for their contested decisions and cite it. Council stays the decision engine; those skills own their document shapes. See `docs/ROADMAP.md` in the repo for the planned set and the contract between them.

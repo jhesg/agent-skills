@@ -72,6 +72,12 @@ Write `prd.md` from the template. Sections:
 
 Prose is for reasoning; tables are for anything with three or more parallel items. Keep the first section readable by someone who reads nothing else.
 
+### 4b. Diagrams
+
+Use the `diagram` skill when the picture carries structure text cannot: rarely. A key user flow with branches may earn one. Metrics and scope are tables. Files land in `<doc dir>/diagrams/` as spec, `.excalidraw`, and SVG; the document embeds the SVG with a one-line caption that links the `.excalidraw` for editing. Same palette as every artifact here, so tones mean the same thing across documents: 1 chosen, 2 alternative, 3 external, danger failure.
+
+If `diagram` is not installed, use a Mermaid block inline for a simple flow and say a richer diagram was skipped. Never draw a list.
+
 ### 5. Review
 
 Run `references/review-checklist.md` against the draft. Fix what fails. Anything you cannot fix goes to Open questions with an owner.

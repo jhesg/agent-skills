@@ -1,6 +1,6 @@
 {
   "name": "system-design",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "System design document skill: a system design: components, data flow, capacity, failure modes, operations; delegates contested decisions to council",
   "author": {
     "name": "Jhonatan",

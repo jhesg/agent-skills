@@ -1,6 +1,6 @@
 {
   "name": "spec",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Technical spec document skill: a technical spec for one feature: behaviour, data, interfaces, rollout, testing; delegates contested decisions to council",
   "author": {
     "name": "Jhonatan",

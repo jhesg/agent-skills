@@ -36,6 +36,9 @@ Because: <DECIDING POINT, quoted>
 - Bad: <BIGGEST RISK, other Contrarian items tagged high>
 - Watch: <LEADING INDICATOR>
 
+## Options at a glance
+<!-- Only when three or more options have visibly different shapes. Use the diagram skill, columns layout, one frame per option, same detail per option, tones: 1 chosen, 2 rejected, danger risk. Embed the SVG from <record dir>/diagrams/, caption links the .excalidraw. Two options with the same shape: delete this section, the table below is the comparison. If diagram is not installed, delete this section. -->
+
 ## Pros and cons of the options
 ### <Option>
 - Good: <from Stage 2 takes and Stage 3 reviews>
