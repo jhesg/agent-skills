@@ -1,0 +1,23 @@
+{
+  "skill_name": "system-design",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "System design for our notification pipeline redesign: email, in-app, push, currently synchronous in API handlers, p95 climbing, duplicate sends on retries, need exactly-once user-visible semantics for application emails, Vercel + Fly.io + Neon, 4 backend engineers.",
+      "expected_output": "Full draft with contested decisions delegated to council and cited",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "/system-design docs/architecture/notifications.md \u2014 feedback: SRE rejects beta infra, remove Vercel Queues option and re-evaluate.",
+      "expected_output": "Iteration: in-place update, Changelog line, decision re-trigger where feedback challenges a record",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "design the architecture for a small internal link shortener",
+      "expected_output": "Short input: intake asks up to 3 questions or drafts with defaults; likely no council run needed",
+      "files": []
+    }
+  ]
+}

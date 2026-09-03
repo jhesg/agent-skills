@@ -1,0 +1,16 @@
+{
+  "name": "system-design",
+  "version": "0.1.0",
+  "description": "System design document skill: a system design: components, data flow, capacity, failure modes, operations; delegates contested decisions to council",
+  "author": {
+    "name": "Jhonatan",
+    "url": "https://github.com/jhesg"
+  },
+  "license": "MIT",
+  "keywords": [
+    "system-design",
+    "document",
+    "council",
+    "decision-record"
+  ]
+}
